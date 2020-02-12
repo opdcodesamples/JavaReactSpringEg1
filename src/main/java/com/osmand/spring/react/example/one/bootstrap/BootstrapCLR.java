@@ -1,5 +1,7 @@
 package com.osmand.spring.react.example.one.bootstrap;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.boot.CommandLineRunner;
@@ -21,15 +23,38 @@ public class BootstrapCLR implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+				
+		// create movie list
 		
-		movieRepository.deleteAll().block();
+		List<String> movies = new ArrayList<>();
+		movies.add("Silence of the Lambs");
+		movies.add("Independence Day");
+		movies.add("Terminator");
+		movies.add("Apollo 13");
+		movies.add("Back to Future");
+		movies.add("Wizard of Oz");		
+		movies.add("Despicables");
+		movies.add("Lord of the Rings");
+		movies.add("Jack Ryan");
+		movies.add("Day After Tomorrow");
 		
-		Flux.just("Silence of the Lambs", "Independence Day", "Terminator", "Appolo 13", "Back to Future", "Wizard of Oz", "Despicables","Lord of the Rings","Jack Ryan","Day After Tomorrow").
-		map(title -> new Movie(title, UUID.randomUUID().toString())).
-		flatMap(movieRepository::save).
-		subscribe(null, null, () -> { 
-			movieRepository.findAll().subscribe(System.out::println);
-			});
+		//movieRepository.deleteAll().block();
+		
+		
+		movieRepository.deleteAll()
+						.thenMany(
+								Flux
+								.just(movies.toArray(new String[movies.size()]))
+								.map(title -> new Movie(title))
+								.flatMap(movieRepository::save)
+								
+								).subscribe(null, 
+											null, 
+											() -> { 
+												movieRepository
+														.findAll()
+														.subscribe(System.out::println);
+											});
 
 	}
 

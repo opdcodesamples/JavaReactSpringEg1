@@ -23,21 +23,19 @@ public class MovieServiceImpl implements MovieService {
 
 	@Override
 	public Flux<MovieEvent> events(String movieId) {
-		
+		// returning a new Movie Event
 		return Flux.<MovieEvent>generate(movieEventSynchronousSink -> {
 			movieEventSynchronousSink.next(new MovieEvent(movieId, new Date()));
 		}).delayElements(Duration.ofSeconds(2));
 	}
 
 	@Override
-	public Mono<Movie> getMovieById(String id) {
-		
+	public Mono<Movie> getMovieById(String id) {		
 		return this.movieRepository.findById(id);
 	}
 
 	@Override
 	public Flux<Movie> getAllMovies() {
-		
 		return this.movieRepository.findAll();
 	}
 
