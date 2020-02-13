@@ -36,6 +36,7 @@ public class BootstrapCLR implements CommandLineRunner {
 		movies.add("Despicables");
 		movies.add("Lord of the Rings");
 		movies.add("Jack Ryan");
+		movies.add("Batman");
 		movies.add("Day After Tomorrow");
 		
 		//movieRepository.deleteAll().block();
