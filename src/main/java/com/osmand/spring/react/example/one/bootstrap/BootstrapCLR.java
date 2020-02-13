@@ -27,7 +27,7 @@ public class BootstrapCLR implements CommandLineRunner {
 		// create movie list
 		
 		List<String> movies = new ArrayList<>();
-		movies.add("Silence of the Lambs");
+		movies.add("Lincoln Lawyer");
 		movies.add("Independence Day");
 		movies.add("Terminator");
 		movies.add("Apollo 13");
