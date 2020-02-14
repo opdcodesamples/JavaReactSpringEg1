@@ -20,7 +20,8 @@ public class MovieServiceImpl implements MovieService {
 	public MovieServiceImpl (MovieRepository movieRepository) {
 		this.movieRepository = movieRepository;
 	}
-
+	
+	// https://stackoverflow.com/questions/49951060/difference-between-flux-create-and-flux-generate
 	@Override
 	public Flux<MovieEvent> events(String movieId) {
 		// returning a new Movie Event
